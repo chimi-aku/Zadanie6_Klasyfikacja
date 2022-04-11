@@ -1,6 +1,8 @@
 package com.company;
 
 import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -26,9 +28,12 @@ public class Menu {
                     testSample = selectTestSample();
                     trainingSamples = loadTrainingSamples();
 
+                    trainingSamples.get(0).calculateVectorOfFeaturesPTAVG();
+
                     displayMenu();
                     break;
                 case "2":
+
                     displayMenu();
                     break;
                 case "3":
@@ -108,6 +113,7 @@ public class Menu {
 
         return testSample;
     }
+
 
     private static ArrayList<Sample> loadTrainingSamples() {
 

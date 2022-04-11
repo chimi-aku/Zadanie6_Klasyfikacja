@@ -26,18 +26,22 @@ public class FileHandler {
         while (fileIn.hasNextLine()) {
             String line = fileIn.nextLine();
 
-            String[] separetedLine = line.split(", ");
+            String[] separetedLine = line.split(",");
 
-            String key = separetedLine[0].trim();
-            String pressTime = separetedLine[1].trim();
-            String releaseTime = separetedLine[2].trim();
+            // SOME PROBLEM WITH SOME FILE
+            if(separetedLine.length == 3) {
+                String key = separetedLine[0].trim();
+                String pressTime = separetedLine[1].trim();
+                String releaseTime = separetedLine[2].trim();
 
-            KeyMeasurement measurement = new KeyMeasurement(key, Double.parseDouble(pressTime), Double.parseDouble(releaseTime));
-            keyMeasurements.add(measurement);
+                KeyMeasurement measurement = new KeyMeasurement(key, Double.parseDouble(pressTime), Double.parseDouble(releaseTime));
+                keyMeasurements.add(measurement);
 
 
-//            System.out.println(counter + " " + line);
-//            counter++;
+                System.out.println(counter + " " + line);
+                counter++;
+            }
+
         }
 
         return keyMeasurements;

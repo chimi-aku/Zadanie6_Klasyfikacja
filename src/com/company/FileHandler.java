@@ -2,13 +2,14 @@ package com.company;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileHandler {
 
 
 
-    public  static void readFile(String path) {
+    public static ArrayList<KeyMeasurement> readFile(String path) {
 
         Scanner fileIn = null;
 
@@ -20,6 +21,8 @@ public class FileHandler {
 
         int counter = 0;
 
+        ArrayList<KeyMeasurement> keyMeasurements = new ArrayList<KeyMeasurement>();
+
         while (fileIn.hasNextLine()) {
             String line = fileIn.nextLine();
 
@@ -27,12 +30,17 @@ public class FileHandler {
 
             String key = separetedLine[0].trim();
             String pressTime = separetedLine[1].trim();
-            String releseTime = separetedLine[1].trim();
+            String releaseTime = separetedLine[2].trim();
+
+            KeyMeasurement measurement = new KeyMeasurement(key, Double.parseDouble(pressTime), Double.parseDouble(releaseTime));
+            keyMeasurements.add(measurement);
 
 
-            System.out.println(counter + " " + line);
-            counter++;
+//            System.out.println(counter + " " + line);
+//            counter++;
         }
+
+        return keyMeasurements;
 
     }
 

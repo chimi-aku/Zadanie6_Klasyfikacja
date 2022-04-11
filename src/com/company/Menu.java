@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class Menu {
 
-    private static ArrayList<KeyMeasurement> trainingSamples;
-    private static ArrayList<KeyMeasurement> testSample; // One Test sample, because it's leave-one-out approach
+    private static ArrayList<Sample> trainingSamples;
+    private static Sample testSample ; // One Test sample, because it's leave-one-out approach
     private static String testFileName;
 
     public static void  handleMenu() {
@@ -92,7 +92,7 @@ public class Menu {
     }
 
 
-    private static ArrayList<KeyMeasurement> selectTestSample() {
+    private static Sample selectTestSample() {
 
         String keystrokesPath = new File("").getAbsolutePath();
         keystrokesPath += "\\keystrokes";
@@ -104,12 +104,12 @@ public class Menu {
         testFileName = in.nextLine();
         String filePath = keystrokesPath + "\\" + testFileName;
 
-        ArrayList<KeyMeasurement> testSample = FileHandler.readFile(filePath);
+        Sample testSample = new Sample(testFileName, FileHandler.readFile(filePath));
 
         return testSample;
     }
 
-    private static ArrayList<KeyMeasurement> loadTrainingSamples() {
+    private static ArrayList<Sample> loadTrainingSamples() {
 
         // Loading all Sample except test sample which choose user
 
@@ -118,19 +118,18 @@ public class Menu {
 
         List<String> fileNamesList = getAllFileNamesFromDirectory(keystrokesPath);
 
-        ArrayList<KeyMeasurement> trainingSamples = new ArrayList<KeyMeasurement>();
+        ArrayList<Sample> trainingSamples = new ArrayList<Sample>();
 
         for(String fileName : fileNamesList) {
 
             // Get data from sample
-            if(fileName != testFileName){
+            if(!fileName.equals(testFileName)){
                 String filePath = keystrokesPath + "\\" + fileName;
-                ArrayList<KeyMeasurement> sample = FileHandler.readFile(filePath);
+                ArrayList<KeyMeasurement> measurements = FileHandler.readFile(filePath);
 
-                // Add data to array containing all training Samples Data
-                for (KeyMeasurement s : sample) {
-                    trainingSamples.add(s);
-                }
+                Sample sample = new Sample(fileName, measurements);
+                trainingSamples.add(sample);
+
             }
 
 

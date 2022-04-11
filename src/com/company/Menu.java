@@ -1,5 +1,6 @@
 package com.company;
 
+import java.io.File;
 import java.util.Scanner;
 
 public class Menu {
@@ -16,6 +17,13 @@ public class Menu {
 
             switch (choose) {
                 case "1":
+
+                    String path = new File("").getAbsolutePath();
+                    path += "\\keystrokes\\#01_1.txt";
+
+                    System.out.println(path);
+                    FileHandler.readFile(path);
+
                     displayMenu();
                     break;
                 case "2":

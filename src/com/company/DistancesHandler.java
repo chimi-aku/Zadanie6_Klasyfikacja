@@ -7,9 +7,22 @@ import java.util.Map;
 
 public class DistancesHandler {
 
-    public static Map<String, Double> calculateDistances(Sample testSample, ArrayList<Sample> trainingSamples) {
+    public static Map<String, Double> calculateDistances(Sample testSample, ArrayList<Sample> trainingSamples, String metric) {
 
         Map<String, Double> distances = new HashMap<>();
+
+        for(Sample sample : trainingSamples) {
+
+            String sampleName = sample.getSampleName();
+            Double dist = 0.0;
+
+            if(metric == "manhattan") {
+                dist = calculateManhattanDistanceBetweenTwoSamples(testSample, sample);
+            }
+
+
+            distances.put(sampleName, dist);
+        }
 
         return distances;
     }

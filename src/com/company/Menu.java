@@ -1,15 +1,14 @@
 package com.company;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Menu {
 
     private static ArrayList<Sample> trainingSamples;
     private static Sample testSample ; // One Test sample, because it's leave-one-out approach
     private static String testFileName;
+    private static Map<String, Double> distances = new HashMap<>();
 
     private static String distanceMetric = "manhattan";
 
@@ -46,7 +45,7 @@ public class Menu {
                     break;
                 case "5":
 
-                    DistancesHandler.calculateManhattanDistanceBetweenTwoSamples(testSample, trainingSamples.get(0));
+                    distances = DistancesHandler.calculateDistances(testSample, trainingSamples, distanceMetric);
 
                     displayMenu();
                     break;

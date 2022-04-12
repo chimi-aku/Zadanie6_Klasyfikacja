@@ -77,12 +77,12 @@ public class Menu {
 
     private static void chooseMetric() {
 
+        displayDistanceMetricMenu();
         Scanner in = new Scanner(System.in);
         String choose = "";
 
         while(true) {
 
-            displayDistanceMetricMenu();
             choose = in.nextLine();
 
             switch (choose) {

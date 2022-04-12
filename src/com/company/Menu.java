@@ -11,6 +11,8 @@ public class Menu {
     private static Sample testSample ; // One Test sample, because it's leave-one-out approach
     private static String testFileName;
 
+    private static String distanceMetric = "manhattan";
+
     public static void  handleMenu() {
 
         displayMenu();
@@ -39,6 +41,7 @@ public class Menu {
                     displayMenu();
                     break;
                 case "4":
+                    chooseMetric();
                     displayMenu();
                     break;
                 case "5":
@@ -70,6 +73,29 @@ public class Menu {
         System.out.println("5. Start Classification");
         System.out.println("6. Quit");
 
+    }
+
+    private static void chooseMetric() {
+
+        Scanner in = new Scanner(System.in);
+        String choose = "";
+
+        while(true) {
+
+            displayDistanceMetricMenu();
+            choose = in.nextLine();
+
+            switch (choose) {
+                case "1":
+                    distanceMetric = "manhattan";
+                    displayMenu();
+                    break;
+            }
+        }
+    }
+
+    private static void displayDistanceMetricMenu() {
+        System.out.println("1. Select Manhattan ");
     }
 
 

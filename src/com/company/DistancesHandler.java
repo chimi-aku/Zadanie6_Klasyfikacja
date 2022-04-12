@@ -8,6 +8,7 @@ public class DistancesHandler {
 
 
 
+
     public static Double calculateManhattanDistanceBetweenTwoSamples(Sample testSample, Sample secondSample) {
 
         Double distance = 0.0;

@@ -1,12 +1,18 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 public class DistancesHandler {
 
+    public static Map<String, Double> calculateDistances(Sample testSample, ArrayList<Sample> trainingSamples) {
 
+        Map<String, Double> distances = new HashMap<>();
+
+        return distances;
+    }
 
 
     public static Double calculateManhattanDistanceBetweenTwoSamples(Sample testSample, Sample secondSample) {

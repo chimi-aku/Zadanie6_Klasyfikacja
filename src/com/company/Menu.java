@@ -12,6 +12,9 @@ public class Menu {
 
     private static String distanceMetric = "manhattan";
 
+
+    private static int k = 3; // k - Nearest Neighbor
+
     public static void  handleMenu() {
 
         displayMenu();
@@ -37,6 +40,7 @@ public class Menu {
                     displayMenu();
                     break;
                 case "3":
+                    chooseKForKNN();
                     displayMenu();
                     break;
                 case "4":
@@ -44,8 +48,11 @@ public class Menu {
                     displayMenu();
                     break;
                 case "5":
-
                     distances = DistancesHandler.calculateDistances(testSample, trainingSamples, distanceMetric);
+                    KNN knn = new KNN(k, testSample, distances);
+
+                    knn.classificate();
+
 
                     displayMenu();
                     break;
@@ -71,6 +78,26 @@ public class Menu {
         System.out.println("4. Select Metric");
         System.out.println("5. Start Classification");
         System.out.println("6. Quit");
+
+    }
+
+    private static void chooseKForKNN() {
+
+        Scanner in = new Scanner(System.in);
+        String choose = "";
+
+        System.out.println("Type in number of k - nearest neighbors (1 - 30)");
+
+        choose = in.nextLine();
+        int number = Integer.parseInt(choose);
+
+        if(number < 1 && number > 30) {
+            chooseKForKNN();
+        }
+        else {
+            k = number;
+        }
+
 
     }
 

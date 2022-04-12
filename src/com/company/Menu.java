@@ -5,6 +5,7 @@ import java.util.*;
 
 public class Menu {
 
+    private static ArrayList<Sample> allSamples;
     private static ArrayList<Sample> trainingSamples;
     private static Sample testSample ; // One Test sample, because it's leave-one-out approach
     private static String testFileName;
@@ -60,6 +61,13 @@ public class Menu {
                     System.out.println("Quiting...");
                     System.exit(0);
                     break;
+                case "7":
+                    System.out.println("Total");
+                    allSamples = loadAllSamples();
+
+
+                    displayMenu();
+                    break;
                 default:
                     System.out.println("There is no such command!");
                     displayMenu();
@@ -76,8 +84,9 @@ public class Menu {
         System.out.println("2. Select Naive Bayes Classification");
         System.out.println("3. Select kNN Classification");
         System.out.println("4. Select Metric");
-        System.out.println("5. Start Classification");
-        System.out.println("6. Quit");
+        System.out.println("5. Start Single Classification");
+        System.out.println("6. Total Classification");
+        System.out.println("7. Quit");
 
     }
 
@@ -200,6 +209,33 @@ public class Menu {
 
     }
 
+
+    private static ArrayList<Sample> loadAllSamples() {
+        // Loading all Samples
+
+        String keystrokesPath = new File("").getAbsolutePath();
+        keystrokesPath += "\\keystrokes";
+
+        List<String> fileNamesList = getAllFileNamesFromDirectory(keystrokesPath);
+
+        ArrayList<Sample> allSamples = new ArrayList<Sample>();
+
+        for(String fileName : fileNamesList) {
+
+            // Get data from sample
+            String filePath = keystrokesPath + "\\" + fileName;
+            ArrayList<KeyMeasurement> measurements = FileHandler.readFile(filePath);
+
+            Sample sample = new Sample(fileName, measurements);
+            allSamples.add(sample);
+
+        }
+
+        return allSamples;
+
+    }
+
+
     private static void calculateVectorsOfFeaturesOfTrainingsSamples() {
 
         for(Sample sample : trainingSamples) {
@@ -210,9 +246,14 @@ public class Menu {
 
     }
 
+
     private static void calculateVectorsOfFeaturesOfTestSample() {
 
         testSample.calculateOneVectorOfFeaturesPTAVG();
+
+    }
+
+    public void totalClassification() {
 
     }
 

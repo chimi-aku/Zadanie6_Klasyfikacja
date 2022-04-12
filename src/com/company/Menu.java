@@ -42,6 +42,9 @@ public class Menu {
                     displayMenu();
                     break;
                 case "5":
+
+                    DistancesHandler.calculateManhattanDistanceBetweenTwoSamples(testSample, trainingSamples.get(0));
+
                     displayMenu();
                     break;
                 case "6":

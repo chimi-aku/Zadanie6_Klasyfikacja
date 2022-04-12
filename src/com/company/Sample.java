@@ -59,4 +59,12 @@ public class Sample {
         //System.out.println("Calc done");
 
     }
+
+    public String getSampleName() {
+        return sampleName;
+    }
+
+    public Map<String, Feature> getVectorOfFeatures() {
+        return vectorOfFeatures;
+    }
 }

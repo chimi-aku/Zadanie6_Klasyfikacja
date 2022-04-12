@@ -38,7 +38,7 @@ public class FileHandler {
                 keyMeasurements.add(measurement);
 
 
-                System.out.println(counter + " " + line);
+                //System.out.println(counter + " " + line);
                 counter++;
             }
 

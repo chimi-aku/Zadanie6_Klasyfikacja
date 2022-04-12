@@ -15,7 +15,7 @@ public class Sample {
         this.keyMeasurements = keyMeasurements;
     }
 
-    public void calculateVectorOfFeaturesPTAVG() {
+    public void calculateOneVectorOfFeaturesPTAVG() {
 
         // Calculate Vector of Features based on average press time
 
@@ -56,7 +56,7 @@ public class Sample {
 
         }
 
-        System.out.println("Calc done");
+        //System.out.println("Calc done");
 
     }
 }

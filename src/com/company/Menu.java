@@ -1,8 +1,6 @@
 package com.company;
 
 import java.io.File;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -28,7 +26,8 @@ public class Menu {
                     testSample = selectTestSample();
                     trainingSamples = loadTrainingSamples();
 
-                    trainingSamples.get(0).calculateVectorOfFeaturesPTAVG();
+                    calculateVectorsOfFeaturesOfTestSample();
+                    calculateVectorsOfFeaturesOfTrainingsSamples();
 
                     displayMenu();
                     break;
@@ -143,6 +142,22 @@ public class Menu {
 
         return trainingSamples;
 
+
+    }
+
+    private static void calculateVectorsOfFeaturesOfTrainingsSamples() {
+
+        for(Sample sample : trainingSamples) {
+
+            sample.calculateOneVectorOfFeaturesPTAVG();
+
+        }
+
+    }
+
+    private static void calculateVectorsOfFeaturesOfTestSample() {
+
+        testSample.calculateOneVectorOfFeaturesPTAVG();
 
     }
 

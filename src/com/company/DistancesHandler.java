@@ -85,6 +85,31 @@ public class DistancesHandler {
         return Math.sqrt(distance);
     }
 
+    public static Double calculateMetricGeneratedByTheStandardDistanceBetweenTwoSamples(Sample testSample, Sample secondSample) {
+
+        Double distance = 0.0;
+        Map<String, Double> testSampleVector = getVectorWithDTAVG(testSample);
+        Map<String, Double> secondSampleVector = getVectorWithDTAVG(secondSample);
+
+        // Iterating over two hashmaps
+
+        Iterator<Map.Entry<String, Double>> firstIterator = testSampleVector.entrySet().iterator();
+        Iterator<Map.Entry<String, Double>> secondIterator = secondSampleVector.entrySet().iterator();
+
+        while(secondIterator.hasNext()) {
+
+            // next hashmaps element
+            Map.Entry<String, Double> firstEntry = firstIterator.next();
+            Map.Entry<String, Double> secondEntry = secondIterator.next();
+
+            // calculating Euclidean Distance
+            distance += Math.pow((firstEntry.getValue() - secondEntry.getValue()),10);
+        }
+
+
+        return Math.pow(distance,1.0/10);
+    }
+
     public static Double calculateDiscreetDistanceBetweenTwoSamples(Sample testSample, Sample secondSample) {
 
         Double distance = 0.0;

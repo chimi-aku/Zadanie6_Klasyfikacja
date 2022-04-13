@@ -127,12 +127,31 @@ public class Menu {
                     distanceMetric = "manhattan";
                     displayMenu();
                     break;
+                case "2":
+                    distanceMetric = "euclidean";
+                    displayMenu();
+                    break;
+                case "3":
+                    distanceMetric = "discreet";
+                    displayMenu();
+                    break;
+                case "4":
+                    distanceMetric = "max";
+                    displayMenu();
+                    break;
+                default:
+                    System.out.println("There is no such command!");
+                    displayMenu();
+                    break;
             }
         }
     }
 
     private static void displayDistanceMetricMenu() {
         System.out.println("1. Select Manhattan ");
+        System.out.println("2. Select Euclidean ");
+        System.out.println("3. Select Discreet ");
+        System.out.println("4. Select Max ");
     }
 
 

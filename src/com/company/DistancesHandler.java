@@ -1,9 +1,7 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+
+import java.util.*;
 
 public class DistancesHandler {
 
@@ -18,6 +16,15 @@ public class DistancesHandler {
 
             if(metric == "manhattan") {
                 dist = calculateManhattanDistanceBetweenTwoSamples(testSample, sample);
+            }
+            if(metric == "euclidean") {
+                dist = calculateEuclideanDistanceBetweenTwoSamples(testSample, sample);
+            }
+            if(metric == "discreet") {
+                dist = calculateDiscreetDistanceBetweenTwoSamples(testSample, sample);
+            }
+            if(metric == "max") {
+                dist = calculateMaxDistanceBetweenTwoSamples(testSample, sample);
             }
 
 
@@ -51,6 +58,83 @@ public class DistancesHandler {
 
 
         return distance;
+    }
+
+    public static Double calculateEuclideanDistanceBetweenTwoSamples(Sample testSample, Sample secondSample) {
+
+        Double distance = 0.0;
+        Map<String, Double> testSampleVector = getVectorWithDTAVG(testSample);
+        Map<String, Double> secondSampleVector = getVectorWithDTAVG(secondSample);
+
+        // Iterating over two hashmaps
+
+        Iterator<Map.Entry<String, Double>> firstIterator = testSampleVector.entrySet().iterator();
+        Iterator<Map.Entry<String, Double>> secondIterator = secondSampleVector.entrySet().iterator();
+
+        while(secondIterator.hasNext()) {
+
+            // next hashmaps element
+            Map.Entry<String, Double> firstEntry = firstIterator.next();
+            Map.Entry<String, Double> secondEntry = secondIterator.next();
+
+            // calculating Euclidean Distance
+            distance += Math.pow((firstEntry.getValue() - secondEntry.getValue()),2);
+        }
+
+
+        return Math.sqrt(distance);
+    }
+
+    public static Double calculateDiscreetDistanceBetweenTwoSamples(Sample testSample, Sample secondSample) {
+
+        Double distance = 0.0;
+        Map<String, Double> testSampleVector = getVectorWithDTAVG(testSample);
+        Map<String, Double> secondSampleVector = getVectorWithDTAVG(secondSample);
+
+        // Iterating over two hashmaps
+
+        Iterator<Map.Entry<String, Double>> firstIterator = testSampleVector.entrySet().iterator();
+        Iterator<Map.Entry<String, Double>> secondIterator = secondSampleVector.entrySet().iterator();
+
+        while(secondIterator.hasNext()) {
+
+            // next hashmaps element
+            Map.Entry<String, Double> firstEntry = firstIterator.next();
+            Map.Entry<String, Double> secondEntry = secondIterator.next();
+
+            // calculating Discreet Distance
+            distance += (firstEntry.getValue().equals(secondEntry.getValue()) ?1:0);
+        }
+
+
+        return Math.sqrt(distance);
+    }
+
+    public static Double calculateMaxDistanceBetweenTwoSamples(Sample testSample, Sample secondSample) {
+
+        Double distance = 0.0;
+        Map<String, Double> testSampleVector = getVectorWithDTAVG(testSample);
+        Map<String, Double> secondSampleVector = getVectorWithDTAVG(secondSample);
+
+        // Iterating over two hashmaps
+
+        Iterator<Map.Entry<String, Double>> firstIterator = testSampleVector.entrySet().iterator();
+        Iterator<Map.Entry<String, Double>> secondIterator = secondSampleVector.entrySet().iterator();
+
+        ArrayList<Double> distances = new ArrayList<>();
+
+        while(secondIterator.hasNext()) {
+
+            // next hashmaps element
+            Map.Entry<String, Double> firstEntry = firstIterator.next();
+            Map.Entry<String, Double> secondEntry = secondIterator.next();
+
+            // calculating Maximum Distance
+            distances.add(Math.abs((firstEntry.getValue() - secondEntry.getValue()))) ;
+        }
+
+
+        return Collections.max(distances);
     }
 
     private static Map<String, Double> getVectorWithDTAVG(Sample sample) {

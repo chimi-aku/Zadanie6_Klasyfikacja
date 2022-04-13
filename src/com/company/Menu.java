@@ -66,6 +66,8 @@ public class Menu {
                     allSamples = loadAllSamples();
 
 
+
+
                     displayMenu();
                     break;
                 default:
@@ -253,7 +255,15 @@ public class Menu {
 
     }
 
-    public void totalClassification() {
+    public void totalClassification(ArrayList<Sample> allSamples) {
+
+
+        for (Sample sample : allSamples) {
+
+            ArrayList<Sample> trainSamples  = new ArrayList<>();
+            testSample = sample;
+
+        }
 
     }
 

@@ -23,12 +23,7 @@ public class KNN {
 
         String testUser = getUser(testSample.getSampleName());
 
-        if(testUser.equals(modeUser)) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return testUser.equals(modeUser);
 
     }
 
@@ -105,8 +100,7 @@ public class KNN {
     private String getUser(String sampleName) {
 
         String[] str = sampleName.split("_");
-        String user = str[0];
-        return user;
+        return str[0];
 
     }
 

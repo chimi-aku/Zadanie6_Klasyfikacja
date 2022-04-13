@@ -10,9 +10,10 @@ public class Menu {
     private static Sample testSample ; // One Test sample, because it's leave-one-out approach
     private static String testFileName;
     private static Map<String, Double> distances = new HashMap<>();
+    private static Map<String, Boolean> classificationResults = new HashMap<>();
 
     private static String distanceMetric = "manhattan";
-
+    private static String classificationMethod = "knn";
 
     private static int k = 3; // k - Nearest Neighbor
 
@@ -52,23 +53,20 @@ public class Menu {
                     distances = DistancesHandler.calculateDistances(testSample, trainingSamples, distanceMetric);
                     KNN knn = new KNN(k, testSample, distances);
 
-                    knn.classificate();
-
+                    ;
+                    System.out.println(knn.classificate());
 
                     displayMenu();
                     break;
                 case "6":
-                    System.out.println("Quiting...");
-                    System.exit(0);
-                    break;
-                case "7":
                     System.out.println("Total");
                     allSamples = loadAllSamples();
-
-
-
-
+                    totalClassification(allSamples);
                     displayMenu();
+                    break;
+                case "7":
+                    System.out.println("Quiting...");
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("There is no such command!");
@@ -102,7 +100,7 @@ public class Menu {
         choose = in.nextLine();
         int number = Integer.parseInt(choose);
 
-        if(number < 1 && number > 30) {
+        if(number < 1 || number > 30) {
             chooseKForKNN();
         }
         else {
@@ -274,15 +272,63 @@ public class Menu {
 
     }
 
-    public void totalClassification(ArrayList<Sample> allSamples) {
+    public static void totalClassification(ArrayList<Sample> allSamples) {
 
 
         for (Sample sample : allSamples) {
 
-            ArrayList<Sample> trainSamples  = new ArrayList<>();
             testSample = sample;
+            testFileName = sample.getSampleName();
+            trainingSamples = new ArrayList<>();
+
+            if(trainingSamples.size() != 0 ) {
+                trainingSamples.clear();
+            }
+
+
+            for(Sample s : allSamples) {
+
+                if(s.getSampleName() != testFileName) {
+                    trainingSamples.add(s);
+                }
+            }
+
+            distances = DistancesHandler.calculateDistances(testSample, trainingSamples, distanceMetric);
+
+            if(classificationMethod == "knn") {
+                KNN knn = new KNN(k, testSample, distances);
+                Boolean classificationRes = knn.classificate();
+                classificationResults.put(testFileName, classificationRes);
+
+            }
+            else if (classificationMethod == "naive_bayes") {
+
+            }
 
         }
+
+        displayClassificationResults();
+
+
+    }
+
+    private static void displayClassificationResults() {
+
+        Double accuracy = 0.0;
+
+        // Iterating HashMap through for loop
+        for (Map.Entry<String, Boolean> set :
+                classificationResults.entrySet()) {
+
+            if(set.getValue() == true) {
+                accuracy += 1;
+            }
+
+            System.out.println(set.getKey() + " result: " + set.getValue());
+        }
+
+        accuracy /= classificationResults.size();
+        System.out.println(accuracy);
 
     }
 

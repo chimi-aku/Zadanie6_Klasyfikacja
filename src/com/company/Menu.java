@@ -52,9 +52,9 @@ public class Menu {
                 case "5":
                     distances = DistancesHandler.calculateDistances(testSample, trainingSamples, distanceMetric);
                     KNN knn = new KNN(k, testSample, distances);
-
+                    Boolean classificationRes = knn.classificate();
                     ;
-                    System.out.println(knn.classificate());
+                    System.out.println(classificationRes);
 
                     displayMenu();
                     break;
@@ -288,7 +288,7 @@ public class Menu {
 
             for(Sample s : allSamples) {
 
-                if(s.getSampleName() != testFileName) {
+                if(!s.getSampleName().equals(testFileName)) {
                     trainingSamples.add(s);
                 }
             }

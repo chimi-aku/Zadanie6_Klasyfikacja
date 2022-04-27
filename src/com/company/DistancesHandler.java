@@ -17,16 +17,18 @@ public class DistancesHandler {
             if(metric == "manhattan") {
                 dist = calculateManhattanDistanceBetweenTwoSamples(testSample, sample);
             }
-            if(metric == "euclidean") {
+            else if(metric == "euclidean") {
                 dist = calculateEuclideanDistanceBetweenTwoSamples(testSample, sample);
             }
-            if(metric == "discreet") {
+            else if(metric == "discreet") {
                 dist = calculateDiscreetDistanceBetweenTwoSamples(testSample, sample);
             }
-            if(metric == "max") {
+            else if(metric == "max") {
                 dist = calculateMaxDistanceBetweenTwoSamples(testSample, sample);
             }
-
+            else if(metric == "standard"){
+                dist = calculateMetricGeneratedByTheStandardDistanceBetweenTwoSamples(testSample, sample);
+            }
 
             distances.put(sampleName, dist);
         }

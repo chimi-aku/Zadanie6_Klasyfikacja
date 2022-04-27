@@ -15,7 +15,7 @@ public class Menu {
     private static String distanceMetric = "manhattan";
     private static String classificationMethod = "knn";
 
-    private static int k = 3; // k - Nearest Neighbor
+    private static int k = 2; // k - Nearest Neighbor
 
     public static void  handleMenu() {
 
@@ -53,7 +53,7 @@ public class Menu {
                     distances = DistancesHandler.calculateDistances(testSample, trainingSamples, distanceMetric);
                     KNN knn = new KNN(k, testSample, distances);
                     Boolean classificationRes = knn.classificate();
-                    ;
+
                     System.out.println(classificationRes);
 
                     displayMenu();
@@ -293,12 +293,16 @@ public class Menu {
                 }
             }
 
+            calculateVectorsOfFeaturesOfTestSample();
+            calculateVectorsOfFeaturesOfTrainingsSamples();
+
             distances = DistancesHandler.calculateDistances(testSample, trainingSamples, distanceMetric);
 
             if(classificationMethod == "knn") {
                 KNN knn = new KNN(k, testSample, distances);
                 Boolean classificationRes = knn.classificate();
                 classificationResults.put(testFileName, classificationRes);
+
 
             }
             else if (classificationMethod == "naive_bayes") {

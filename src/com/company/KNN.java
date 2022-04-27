@@ -4,10 +4,10 @@ import java.util.*;
 
 public class KNN {
 
-    private int k = 3; // k - Nearest Neighbor
+    private int k; // k - Nearest Neighbor
     private Sample testSample ;
     private Map<String, Double> distances = new HashMap<>();
-
+    private String closestSample;
 
     public KNN(int k, Sample testSample, Map<String, Double> distances) {
         this.k = k;
@@ -41,9 +41,12 @@ public class KNN {
         for (Map.Entry<String, Double> set :
                 sortedDistances.entrySet()) {
 
+            if(i == 0) closestSample = set.getKey();
+
             kNeighbors.put(set.getKey(), set.getValue());
             i++;
             if(i == k) break;
+
         }
 
          return kNeighbors;
@@ -86,12 +89,22 @@ public class KNN {
         String modeUser = "";
         Map<String, Double> sortedCountedNeighbors = sortByValue(countedNeighbors);
 
+        Map.Entry<String,Double> entry = sortedCountedNeighbors.entrySet().iterator().next();
+
+        Double e = entry.getValue();
+        Boolean everyEqual = true;
+
         for (Map.Entry<String, Double> set :
                 sortedCountedNeighbors.entrySet()) {
+
+            if(set.getValue() != e) everyEqual = false;
 
             modeUser = set.getKey();
         }
 
+        if(everyEqual) {
+            modeUser = closestSample;
+        }
 
         return modeUser;
 

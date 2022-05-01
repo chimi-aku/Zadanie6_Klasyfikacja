@@ -12,10 +12,10 @@ public class Menu {
     private static Map<String, Double> distances = new HashMap<>();
     private static Map<String, Boolean> classificationResults = new HashMap<>();
 
-    private static String distanceMetric = "manhattan";
+    private static String distanceMetric = "lorentzian";
     private static String classificationMethod = "knn";
 
-    private static int k = 2; // k - Nearest Neighbor
+    private static int k = 3; // k - Nearest Neighbor
 
     public static void  handleMenu() {
 
@@ -28,50 +28,43 @@ public class Menu {
             choose = in.nextLine();
 
             switch (choose) {
-                case "1":
+                case "1" -> {
                     testSample = selectTestSample();
                     trainingSamples = loadTrainingSamples();
-
                     calculateVectorsOfFeaturesOfTestSample();
                     calculateVectorsOfFeaturesOfTrainingsSamples();
-
                     displayMenu();
-                    break;
-                case "2":
-
-                    displayMenu();
-                    break;
-                case "3":
+                }
+                case "2" -> displayMenu();
+                case "3" -> {
                     chooseKForKNN();
                     displayMenu();
-                    break;
-                case "4":
+                }
+                case "4" -> {
                     chooseMetric();
                     displayMenu();
-                    break;
-                case "5":
+                }
+                case "5" -> {
                     distances = DistancesHandler.calculateDistances(testSample, trainingSamples, distanceMetric);
                     KNN knn = new KNN(k, testSample, distances);
                     Boolean classificationRes = knn.classificate();
-
                     System.out.println(classificationRes);
-
                     displayMenu();
-                    break;
-                case "6":
+                }
+                case "6" -> {
                     System.out.println("Total");
                     allSamples = loadAllSamples();
                     totalClassification(allSamples);
                     displayMenu();
-                    break;
-                case "7":
+                }
+                case "7" -> {
                     System.out.println("Quiting...");
                     System.exit(0);
-                    break;
-                default:
+                }
+                default -> {
                     System.out.println("There is no such command!");
                     displayMenu();
-                    break;
+                }
             }
         }
 
@@ -121,26 +114,34 @@ public class Menu {
             choose = in.nextLine();
 
             switch (choose) {
-                case "1":
+                case "1" -> {
                     distanceMetric = "manhattan";
-                    displayMenu();
-                    break;
-                case "2":
+                    handleMenu();
+                }
+                case "2" -> {
                     distanceMetric = "euclidean";
-                    displayMenu();
-                    break;
-                case "3":
+                    handleMenu();
+                }
+                case "3" -> {
                     distanceMetric = "discreet";
-                    displayMenu();
-                    break;
-                case "4":
+                    handleMenu();
+                }
+                case "4" -> {
+                    distanceMetric = "standard";
+                    handleMenu();
+                }
+                case "5" -> {
                     distanceMetric = "max";
-                    displayMenu();
-                    break;
-                default:
+                    handleMenu();
+                }
+                case "6" -> {
+                    distanceMetric = "lorentzian";
+                    handleMenu();
+                }
+                default -> {
                     System.out.println("There is no such command!");
-                    displayMenu();
-                    break;
+                    displayDistanceMetricMenu();
+                }
             }
         }
     }
@@ -150,6 +151,8 @@ public class Menu {
         System.out.println("2. Select Euclidean ");
         System.out.println("3. Select Discreet ");
         System.out.println("4. Select Max ");
+        System.out.println("5. Select Standard ");
+        System.out.println("6. Select Lorentzian ");
     }
 
 
@@ -191,9 +194,7 @@ public class Menu {
         testFileName = in.nextLine();
         String filePath = keystrokesPath + "\\" + testFileName;
 
-        Sample testSample = new Sample(testFileName, FileHandler.readFile(filePath));
-
-        return testSample;
+        return new Sample(testFileName, FileHandler.readFile(filePath));
     }
 
 

@@ -22,7 +22,9 @@ public class KNN {
         String modeUser = getModeUser(countedNeighbors);
 
         String testUser = getUser(testSample.getSampleName());
-
+        if(modeUser.contains("_")) {
+            modeUser = getUser(modeUser);
+        }
         return testUser.equals(modeUser);
 
     }
@@ -86,6 +88,8 @@ public class KNN {
 
     private String getModeUser(Map<String, Double> countedNeighbors) {
 
+        // to better getting mode user, we can decide basing on sum of distances a sample
+
         String modeUser = "";
         Map<String, Double> sortedCountedNeighbors = sortByValue(countedNeighbors);
 
@@ -97,7 +101,9 @@ public class KNN {
         for (Map.Entry<String, Double> set :
                 sortedCountedNeighbors.entrySet()) {
 
-            if(set.getValue() != e) everyEqual = false;
+            Double curr = set.getValue();
+
+            if(!curr.equals(e)) everyEqual = false;
 
             modeUser = set.getKey();
         }

@@ -12,10 +12,10 @@ public class Menu {
     private static Map<String, Double> distances = new HashMap<>();
     private static Map<String, Boolean> classificationResults = new HashMap<>();
 
-    private static String distanceMetric = "lorentzian";
+    private static String distanceMetric = "manhattan";
     private static String classificationMethod = "knn";
 
-    private static int k = 3; // k - Nearest Neighbor
+    private static int k = 10; // k - Nearest Neighbor
 
     public static void  handleMenu() {
 
